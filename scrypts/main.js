@@ -14,28 +14,53 @@ function initMobileMenu() {
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     
-    console.log('MenuToggle encontrado:', menuToggle);
-    console.log('NavLinks encontrado:', navLinks);
+    console.log('🔍 Buscando elementos...');
+    console.log('MenuToggle:', menuToggle);
+    console.log('NavLinks:', navLinks);
     
-    if (menuToggle && navLinks) {
-        // Toggle del menú al hacer clic en el botón hamburguesa
-        menuToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            navLinks.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-            
-            console.log('Menú activado:', navLinks.classList.contains('active'));
+    if (!menuToggle || !navLinks) {
+        console.error('❌ No se encontraron los elementos del menú');
+        return;
+    }
+    
+    console.log('✅ Elementos encontrados correctamente');
+    
+    // Toggle del menú al hacer clic en el botón hamburguesa
+    menuToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log('🖱️ Click en el botón');
+        
+        navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+        
+        const isActive = navLinks.classList.contains('active');
+        console.log('📱 Menú está:', isActive ? 'ABIERTO' : 'CERRADO');
+    });
+    
+    console.log('✅ Event listener del menú agregado');
+
+    // Cerrar menú al hacer clic en un enlace
+    const links = navLinks.querySelectorAll('a');
+    links.forEach(link => {
+        link.addEventListener('click', function() {
+            navLinks.classList.remove('active');
+            menuToggle.classList.remove('active');
+            console.log('🔗 Menú cerrado por clic en enlace');
         });
-        // Cerrar menú al hacer clic fuera de él
-        document.addEventListener('click', (e) => {
-            if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+    });
+
+    // Cerrar menú al hacer clic fuera de él
+    document.addEventListener('click', function(e) {
+        if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+            if (navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
                 menuToggle.classList.remove('active');
+                console.log('👆 Menú cerrado por clic fuera');
             }
-        });
-    }
+        }
+    });
 }
 
 // ============================================
@@ -141,8 +166,9 @@ function initScrollAnimations() {
 /**
  * Función principal que se ejecuta cuando el DOM está listo
  */
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Portfolio cargado correctamente');
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Portfolio cargado correctamente');
+    console.log('📍 Iniciando funcionalidades...');
     
     // Inicializar todas las funcionalidades
     initMobileMenu();
@@ -151,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     
     // Log para verificar que el JavaScript está funcionando
-    console.log('Todas las funcionalidades inicializadas');
+    console.log('✅ Todas las funcionalidades inicializadas');
 });
 
 // ============================================
