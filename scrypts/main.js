@@ -14,24 +14,20 @@ function initMobileMenu() {
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     
+    console.log('MenuToggle encontrado:', menuToggle);
+    console.log('NavLinks encontrado:', navLinks);
+    
     if (menuToggle && navLinks) {
         // Toggle del menú al hacer clic en el botón hamburguesa
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+        menuToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             
-            // Animación del botón hamburguesa
+            navLinks.classList.toggle('active');
             menuToggle.classList.toggle('active');
+            
+            console.log('Menú activado:', navLinks.classList.contains('active'));
         });
-
-        // Cerrar menú al hacer clic en un enlace
-        const links = navLinks.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                menuToggle.classList.remove('active');
-            });
-        });
-
         // Cerrar menú al hacer clic fuera de él
         document.addEventListener('click', (e) => {
             if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
